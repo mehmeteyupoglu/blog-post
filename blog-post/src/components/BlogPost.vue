@@ -5,16 +5,16 @@
 
     <div class="new">
       <h3>Add a New Post</h3>
-      <form>
+      <form @submit.prevent="addPost">
         <input v-model="newTitle" placeholder="title" required/>
         <input v-model="newAuthor" placeholder="author name" required/>
         <select v-model="newLabel" required>
-        <option disabled value="">Add a New label</option>
-        <option>Science</option>
-        <option>Math</option>
-        <option>Poetry</option>
-        <option>History</option>
-      </select>
+          <option disabled value="">Add a New label</option>
+          <option>Science</option>
+          <option>Math</option>
+          <option>Poetry</option>
+          <option>History</option>
+        </select>
         <button type="submit">Add New Blog Post</button>
       </form>
     </div>
@@ -99,6 +99,20 @@ export default {
       newLabel: '',
     }
   },
+  methods: {
+    addPost(){
+      let addedPost = new Object({
+        author: this.newAuthor, 
+        title: this.newTitle, 
+        label: this.newLabel
+      }); 
+      this.posts.push(addedPost); 
+      this.newAuthor = "", 
+      this.newTitle = "", 
+      this.newLabel= ""
+
+    }
+  }
 }
 </script>
 
@@ -106,11 +120,6 @@ export default {
 <style scoped>
 $primary: #5968d7;
 
-#app {
-  display: flex;
-  justify-content: center;
-  font-family: "Work Sans", sans-serif;
-}
 
 h2 {
   text-transform: uppercase;
